@@ -1,0 +1,24 @@
+
+SELECT * 
+FROM stadium a   
+WHERE a.people >= 100 AND 
+(
+(
+a.id+1 in  (SELECT id FROM stadium WHERE people >= 100) 
+AND 
+a.id+2 in  (SELECT id FROM stadium WHERE people >= 100) 
+)
+OR 
+(
+a.id-1  in  (SELECT id FROM stadium WHERE people >= 100) 
+AND 
+a.id+1  in  (SELECT id FROM stadium WHERE people >= 100) 
+)
+OR 
+(
+a.id-1  in  (SELECT id FROM stadium WHERE people >= 100) 
+AND 
+a.id-2  in  (SELECT id FROM stadium WHERE people >= 100) 
+)
+);
+
