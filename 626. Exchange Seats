@@ -1,0 +1,11 @@
+
+# Write your MySQL query statement below
+SELECT (CASE WHEN (cnt%2=1) AND id=cnt THEN id ELSE id + 1 END) AS id, student
+FROM seat, (SELECT count(*) AS cnt FROM seat) AS seatcnt
+WHERE id%2 = 1
+UNION
+SELECT (id-1) AS id,student 
+FROM seat 
+WHERE id%2=0
+ORDER BY id
+;
