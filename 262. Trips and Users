@@ -1,4 +1,5 @@
 
+Method 1:
 SELECT t.Request_at AS Day,
 ROUND(SUM(IF(t.Status = 'completed',0,1)) / COUNT(*) ,2) AS 'Cancellation Rate'
 FROM Trips t
@@ -8,3 +9,17 @@ WHERE t.Request_at BETWEEN '2013-10-01' AND '2013-10-03'
 GROUP BY Day
 ORDER BY Day
 ;
+
+Method 2:
+# change the where clause when the role is not only to be client
+SELECT Request_at AS Day,
+ROUND(SUM(IF(Status = 'completed',0,1)) / COUNT(*) ,2) AS 'Cancellation Rate'
+FROM (SELECT * FROM Trips 
+      WHERE Client_Id NOT IN (SELECT Users_Id FROM Users
+                             WHERE Banned="Yes" AND Role='client')
+      AND Request_at BETWEEN '2013-10-01' AND '2013-10-03'
+     ) t
+GROUP BY Day
+ORDER BY Day
+;
+
