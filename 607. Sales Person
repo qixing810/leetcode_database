@@ -1,0 +1,11 @@
+
+# Write your MySQL query statement below
+SELECT s.name
+FROM salesperson s
+WHERE s.sales_id NOT IN (
+          SELECT DISTINCT sales_id
+          FROM orders
+          WHERE com_id = (SELECT com_id
+                         FROM company
+                         WHERE name="RED"))
+;
