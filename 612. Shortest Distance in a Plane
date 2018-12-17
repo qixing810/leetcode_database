@@ -1,0 +1,7 @@
+
+# Write your MySQL query statement below
+SELECT ROUND(MIN(SQRT(POW(p1.x-p2.x,2)+POW(p1.y-p2.y,2))),2) AS shortest
+FROM point_2d p1
+LEFT JOIN point_2d p2
+ON !(P1.x=P2.x AND p1.y=p2.y)
+;
