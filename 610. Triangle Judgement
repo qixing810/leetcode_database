@@ -1,0 +1,6 @@
+
+# Write your MySQL query statement below
+SELECT *,(IF(x+y>z AND x+z>y AND y+z>x AND
+             ABS(x-y)<z AND ABS(x-z)<y AND ABS(y-z)<x,'Yes','No')) AS triangle
+FROM triangle
+;
