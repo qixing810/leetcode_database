@@ -1,0 +1,9 @@
+
+SELECT DISTINCT f2.follower,f1.num
+FROM (SELECT followee, IFNULL(COUNT(DISTINCT followee,follower),0) AS num
+     FROM follow
+     GROUP BY followee) f1
+INNER JOIN follow f2
+ON f1.followee = f2.follower
+ORDER BY f2.follower
+;
