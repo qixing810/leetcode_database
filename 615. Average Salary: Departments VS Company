@@ -1,0 +1,19 @@
+
+# Write your MySQL query statement below
+SELECT d.pay_month,department_id,
+IF(department_avg=company_avg,'same',IF(department_avg>company_avg,'higher','lower')) AS comparison
+FROM (SELECT date_format(s.pay_date,'%Y-%m') pay_month,
+e.department_id,
+avg(amount) AS department_avg
+FROM salary s
+LEFT JOIN employee e
+ON s.employee_id = e.employee_id
+GROUP BY pay_month,e.department_id) d
+JOIN
+(SELECT date_format(pay_date,'%Y-%m') AS pay_month,
+avg(amount) AS company_avg
+FROM salary
+GROUP BY pay_month) c
+ON d.pay_month = c.pay_month
+ORDER BY department_id
+;
